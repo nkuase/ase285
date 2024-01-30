@@ -160,11 +160,17 @@ myArray.length; // = 4
 myArray[3] = "Hello";
 
 // Add and remove element from front or back end of an array
+console.log(myArray)
+myArray.shift();
+console.log(myArray)
 myArray.unshift(3); // Add as the first element
 console.log(myArray);
+
 someVar = myArray.shift(); // Remove first element and return it
 myArray.push(3); // Add as the last element
+console.log(myArray) 
 someVar = myArray.pop(); // Remove last element and return it
+console.log(myArray)
 
 // Join all elements of an array with semicolon
 var myArray0 = [32,false,"js",12,56,90];
@@ -175,12 +181,16 @@ myArray0.slice(1,4); // = [false,"js",12]
 
 // Remove 4 elements starting from index 2, and insert there strings
 // "hi","wr" and "ld"; return removed subarray
+console.log(myArray0)
 myArray0.splice(2,4,"hi","wr","ld"); // = ["js",12,56,90]
+console.log(myArray0)
 // myArray0 === [32,false,"hi","wr","ld"]
 
 // JavaScript's objects are equivalent to "dictionaries" or "maps" in other
 // languages: an unordered collection of key-value pairs.
-var myObj = {key1: "Hello", key2: "World"};
+var myObj = {key1: "Hello", "key2": "World"};
+console.log(myObj["key1"])
+console.log(myObj.key2)
 
 // Keys are strings, but quotes aren't required if they're a valid
 // JavaScript identifier. Values can be any type.
@@ -217,10 +227,13 @@ if (count == 3){
 //}
 
 // Do-while loops are like while loops, except they always run at least once.
-// var input;
-// do {
-//    input = getInput();
-//} while (!isValid(input));
+var sum = 0;
+var i = 0;
+do {
+   sum += i;
+   i++;
+} while (i < 5);
+console.log(sum)
 
 // The `for` loop is the same as C and Java:
 // initialization; continue condition; iteration.
@@ -239,21 +252,62 @@ for (var i = 0; i < 10; i++) {
     }
 } 
 
-// The for/in statement allows iteration over properties of an object.
-var description = "";
-var person = {fname:"Paul", lname:"Ken", age:18};
-for (var x in person){
-    description += person[x] + " ";
-} // description = 'Paul Ken 18 '
-
 // The for/of statement allows iteration over iterable objects (including the built-in String, 
 // Array, e.g. the Array-like arguments or NodeList objects, TypedArray, Map and Set, 
 // and user-defined iterables).
 var myPets = "";
 var pets = ["cat", "dog", "hamster", "hedgehog"];
-for (var pet of pets){
+for (var pet of pets){ // of
     myPets += pet + " ";
 } // myPets = 'cat dog hamster hedgehog '
+
+var myPets = "";
+for (const pet of pets){ // of
+    myPets += pet + " ";
+    // pet = 3; // This is not possible
+} // myPets = 'cat dog hamster hedgehog '
+
+var myPets = "";
+var pets = ["cat", "dog", "hamster", "hedgehog"];
+for (var pet in pets){ // in 
+    myPets += pet + " ";
+} // myPets = '0 1 2 3 '
+console.log(myPets)
+
+var myPets = "";
+var str = "Hello"
+for (var p of str){ // of will return value
+    myPets += p + " ";
+} // myPets = 'H e l l o '
+console.log(myPets)
+
+// The for/in statement allows iteration over properties of an object.
+var description = "";
+var person = {fname:"Paul", lname:"Ken", age:18};
+for (var x in person){ // get all the values
+    description += person[x] + " ";
+} // description = 'Paul Ken 18 '
+
+description = "";
+var person = {fname:"Paul", lname:"Ken", age:18};
+for (var x of Object.values(person)){ // get all the values
+    description += x + " ";
+} // description = 'Paul Ken 18 '
+console.log(description)
+
+description = ""
+for (var x of Object.keys(person)){
+    description += x + " ";
+} // description = 'fname lname age '
+console.log(description) 
+
+var entries = Object.entries(person)
+console.log(entries) // entries = [ [ 'fname', 'Paul' ], [ 'lname', 'Ken' ], [ 'age', 18 ] ]
+description = "";
+for (const i in entries){
+    description += entries[i][0] + " " + entries[i][1] + ",";
+} // description = 'fname Paul,lname Ken,age 18,'
+console.log(description)
 
 house = {
     size: "big",
@@ -329,19 +383,19 @@ function myFunction(){
 }
 var id = setInterval(myFunction, 50);
 
-
-// Function objects don't even have to be declared with a name - you can write
-// an anonymous function definition directly into the arguments of another.
-setTimeout(function(){
-    // this code will be called in 5 mili seconds' time
-}, 5);
-
 // JavaScript has function scope; functions get their own scope but other blocks
 // do not.
-if (true){
-    var i = 5;
+{
+    let il = 1;
+    var iv = 2; 
 }
-i; // = 5 - not undefined as you'd expect in a block-scoped language
+// il; // error
+iv; // 2 
+
+if (true) {
+    var ivf = 2;
+}
+ivf; 
 
 var permanent =  20;
 // This has led to a common pattern of "immediately-executing anonymous
@@ -378,7 +432,7 @@ function sayHelloInFiveSeconds(name) {
 
     console.log("Script continues executing immediately after setTimeout");
 }
-//sayHelloInFiveSeconds("Eve");
+sayHelloInFiveSeconds("Eve");
 
 setTimeout(() => {
     console.log('after ');
