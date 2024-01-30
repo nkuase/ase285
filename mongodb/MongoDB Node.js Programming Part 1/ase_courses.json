@@ -1,0 +1,22 @@
+{
+    "courses": [
+      {
+        "name":"Unix Systems",
+        "code":"CIT 371",
+        "year":"Year 2 Semester 2",
+        "professor":"Professor X"
+       },
+      {
+        "name":"Cross-Platform Development",
+        "code":"ASE 456",
+        "year":"Year 3 Semester 1",
+        "professor":"Samuel Cho"
+      },
+      {
+        "name":"Applied Software Engineering Capstone",
+        "code":"ASE 485",
+        "year":"Year 4 Semester 4",
+        "professor":"Samuel Cho"
+      }
+    ]
+  }
