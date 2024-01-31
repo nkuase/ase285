@@ -416,24 +416,6 @@ permanent; // = 10
 blockVar; // = 2
 // blockLet
 
-///////////////////////////////////
-
-function sayHelloInFiveSeconds(name) {
-    var prompt = "Hello, " + name + "!";
-    
-    function inner() {
-        console.log(prompt);
-    }
-
-    setTimeout(function() {
-        console.log("Timeout completed after 50 milliseconds");
-        inner();
-    }, 50);
-
-    console.log("Script continues executing immediately after setTimeout");
-}
-sayHelloInFiveSeconds("Eve");
-
 setTimeout(() => {
     console.log('after ');
 }, 10);
@@ -467,6 +449,12 @@ var myObj = {
 };
 myObj.myFunc(); // = "Hello world!"
 
+var myObj = {
+    myFunc: () => "Hello world!" 
+};
+myObj.myFunc(); // = "Hello world!"
+console.log(myObj.myFunc())
+
 // When functions attached to an object are called, they can access the object
 // they're attached to using the `this` keyword.
 myObj = {
@@ -482,6 +470,10 @@ myObj.myFunc(); // = "Hello world!"
 // context of the object.
 var myFunc = myObj.myFunc;
 myFunc(); // = undefined
+
+var myFunc = myObj.myFunc.bind(myObj);
+console.log(myFunc()); // Output: Hello world!
+
 
 // Inversely, a function can be assigned to the object and gain access to it
 // through `this`, even if it wasn't attached when it was defined.
@@ -510,6 +502,7 @@ anotherFunc.apply(myObj, [" And Hello Sun!"]); // = "Hello World! And Hello Sun!
 Math.min(42, 6, 27); // = 6
 Math.min([42, 6, 27]); // = NaN (uh-oh!)
 Math.min.apply(Math, [42, 6, 27]); // = 6
+console.log(Math.min(...[42, 6, 27]))
 
 // But, `call` and `apply` are only temporary. When we want it to stick, we can
 // use `bind`.
@@ -603,26 +596,42 @@ for (var x in myObj){
 var myObj = Object.create(myPrototype);
 myObj.meaningOfLife; // = 43
 
+// constructors
+function MyConstructor2 (name) { // constructor with an argument
+    this.name = name;
+    this.hello = function() {
+      console.log('Hello ' + this.name)
+    }
+}
+// all the this attributes are created for each instance
+var person1 = new MyConstructor2('Sam');
+var person2 = new MyConstructor2('John');
+person2.hello() // 'Hello John'
+person1.hello() // 'Hello Sam'
+
 // The second way, which works anywhere, has to do with constructors.
 // Constructors have a property called prototype. This is *not* the prototype of
 // the constructor function itself; instead, it's the prototype that new objects
 // are given when they're created with that constructor and the new keyword.
-MyConstructor.prototype = {
+MyConstructor2.prototype = {
     myNumber: 5,
     getMyNumber: function(){
         return this.myNumber;
     }
 };
-var myNewObj2 = new MyConstructor();
+var myNewObj2 = new MyConstructor2();
 myNewObj2.getMyNumber(); // = 5
+console.log(myNewObj2.getMyNumber())
 myNewObj2.myNumber = 6;
 myNewObj2.getMyNumber(); // = 6
+console.log(myNewObj2.getMyNumber())
 
 // Built-in types like strings and numbers also have constructors that create
 // equivalent wrapper objects.
 var myNumber = 12;
 var myNumberObj = new Number(12);
 myNumber == myNumberObj; // = true
+myNumber === myNumberObj; // = false
 
 // Except, they aren't exactly equivalent.
 typeof myNumber; // = 'number'
@@ -695,8 +704,27 @@ function isEven2(number) {
 // using the lambda syntax cannnot be called before the definition.
 // The following is an example of invalid usage:
 
-// add(1, 8);
-
+// console.log(add(1, 8))
 const add = (firstNumber, secondNumber) => {
     return firstNumber + secondNumber;
 };
+
+console.log(add2(1, 8))
+function add2(firstNumber, secondNumber) {
+    return firstNumber + secondNumber;
+};
+
+const add3 = (secondNumber) => {
+    return this.firstNumber + secondNumber;
+};
+
+var o = {
+    firstNumber: 1,
+}
+console.log(add3.call(o, 8)) 
+
+function add4(secondNumber) {
+    return this.firstNumber + secondNumber;
+};
+
+console.log(add4.call(o, 8)) 
