@@ -1,13 +1,14 @@
 const add = (a, b) => {
     return a + b;
 };
-const sub = (a, b) => {
-    return a - b;
-};
-  
-module.exports.add = add
-module.exports.sub = sub
-
-// This is the same as above
-//module.exports = {add, sub}
-//console.log(module)
+const mul = (a, b) => {
+    let result = 0;
+    for (let i = 0; i < b; i++) {
+        result = add(result, a)
+    }
+    return result
+}
+// This syntax directly assigns the value of mul to module.exports.
+module.exports = mul;
+//   exports: [Function: mul],
+// console.log(module)
