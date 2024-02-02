@@ -1,9 +1,8 @@
-// module2.js
-// We must append js to the file name when importing a module.
-import * as arith from './arithmetic2.js';
+/*
+npm init --yes automatically makes the json file.
+*/
 
-const sumResult = arith.add(3, 7);
-console.log('Sum:', sumResult);
+import mul from './arithmetic.js';
 
-const subtractResult = arith.sub(10, 4);
-console.log('Subtraction:', subtractResult);
+const result = mul(3, 7);
+console.log(result);
