@@ -1,6 +1,8 @@
-const mul = require('./arithmetic');
-const {add, sub} = require('./arithmetic2.js');
+// appending .js is optional
+const arith = require('./arithmetic');
 
-console.log(mul(3, 7));
-console.log(add(3, 7));
-console.log(sub(3, 7));
+console.log(arith.mul(3, 7));
+
+// When module.exports = mul;
+//const mul = require('./arithmetic.js');
+//console.log(mul(3, 7));
