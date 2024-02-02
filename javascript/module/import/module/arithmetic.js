@@ -9,5 +9,3 @@ export const mul = (a, b) => {
     }
     return result
 }
-  
-//export default mul;
