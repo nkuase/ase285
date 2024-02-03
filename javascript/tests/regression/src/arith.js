@@ -1,4 +1,2 @@
-function add(x, y) {return x + y;}
-function sub(x, y) {return x - y;}
-
-module.exports = {add, sub}
+const add = (a, b)  => a + b
+module.exports.add = add;
