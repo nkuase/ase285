@@ -1,11 +1,13 @@
 // run "npm install . "
 
 const {URI} = require('./_config.js');
-const util = require('../util/mongodbutil.js')
+const { TodoApp } = require('../util/utility.js');
 
 const DATABASE = 'todoapp'; 
 const POSTS = 'posts';
 const COUNTER = 'counter';
+
+const postapp = new TodoApp(URI, DATABASE, POSTS, COUNTER);
 
 // Install express
 const express = require('express');
@@ -20,72 +22,34 @@ app.listen(5500, function() {
     console.log('listening on 5500')
 });
 
-app.get('/', function(req, resp) { 
+app.get('/', async function(req, resp) { 
   try {
-    resp.render('write.ejs')
+    await resp.render('write.ejs')
   } catch (e) {
     console.error(e);
   } 
 });
 
-app.post('/add', function(req, resp) {
-    runAddPost(req, resp);
+app.post('/add', async function(req, resp) {
+  try {
+    await postapp.runAddPost(req, resp);
+  } catch (e) {
+    console.error(e);
+  } 
 });
 
-async function runAddPost(req, resp) {
-    try {
-      const counter = db.collection(COUNTER);
-      const posts = db.collection(POSTS);      
-  
-      let query = {name : 'Total Post'};
-      let res = await counter.findOne(query);
-      console.log(res);
-      const totalPost = res.totalPost;
-
-      query = { _id : totalPost + 1, title : req.body.title, date : req.body.date};
-      res = await posts.insertOne(query);
-      
-      query = {name : 'Total Post'};
-      let stage = { $inc: {totalPost:1} };
-      await counter.updateOne(query, stage);
-      resp.send('Stored to Mongodb OK');
-    } catch (e) {
-      console.error(e);
-    }
-}
-
-
-app.get('/list', function(req, resp){
-  runListGet(req, resp);
+app.get('/list', async function(req, resp){
+  try {
+    await postapp.runListGet(req, resp);
+  } catch (e) {
+    console.error(e);
+  }   
 });
 
-async function runListGet(req, resp) {
-    try {
-      const posts = db.collection(POSTS);
-      const res = await posts.find().toArray();
-      const query = { posts: res };
-      resp.render('list.ejs', query)
-    } catch (e) {
-      console.error(e);
-    } 
-}
-
-app.delete('/delete', async function(req, resp){
-    req.body._id = parseInt(req.body._id); // the body._id is stored in string, so change it into an int value
-    console.log(req.body._id);
-    try {
-        const counter = db.collection(COUNTER);
-        const posts = db.collection(POSTS)
-        const res = await posts.deleteOne(req.body); 
-
-        const query = {name : 'Total Post'};
-        const stage = { $inc: {totalPost:-1} };
-        await counter.updateOne(query, stage);
-
-        console.log('Delete complete')
-        resp.send('Delete complete')
-    }
-    catch (e) {
-        console.error(e);
-    } 
+app.delete('/delete', async function(req, resp){   
+  try {
+    await postapp.runDeletePost(req, resp); 
+  } catch (e) {
+    console.error(e);
+  }     
 }); 

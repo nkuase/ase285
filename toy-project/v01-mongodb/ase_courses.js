@@ -15,10 +15,11 @@ const collectionName = 'courses';
 
   await util.create(client, databaseName, collectionName, {name: "Unix Systems", professor: "Samuel Cho", department: "Computer Science"})
   await util.read(client, databaseName, collectionName, {"professor":"Samuel Cho"});
-  // await update(client, databaseName, collectionName, {"professor":"Samuel Cho"}, {"professor":"Professor x"});
+  await util.update(client, databaseName, collectionName, {"professor":"Samuel Cho"}, {$set: {"professor":"Professor x"}});
   // await delete_document(client, databaseName, collectionName, {"professor":"Professor x"});
 
   //upload(client, databaseName, collectionName, filePath);
   await client.close();
 })();
 
+// { $set: update }

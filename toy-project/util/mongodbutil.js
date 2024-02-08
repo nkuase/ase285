@@ -49,7 +49,7 @@ async function read(uri, databaseName, collectionName, query) {
     const collection = client.db(databaseName).collection(collectionName);
     const result = await collection.find(query).toArray();
     console.log(`Found ${result.length} documents`);
-    console.log(result);
+    //console.log(result);
     return result;
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ async function update(uri, databaseName, collectionName, query, update) {
   try {
     client = await connect(uri);
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.updateOne(query, { $set: update });
+    const result = await collection.updateOne(query, update);
     console.log(`Updated ${result.modifiedCount} document`);
   } catch (error) {
     console.error(error);

@@ -24,9 +24,9 @@ class TodoApp {
       res = await util.create(this.uri, this.database, this.posts, query);
       
       query = {name : 'Total Post'};
-      let stage = {totalPost: totalPost + 1};
+      const stage = {$inc: {totalPost: 1}}
       await util.update(this.uri, this.database, this.counter, query, stage);
-      resp.send('Stored to Mongodb OK');
+      this.runListGet(req, resp);
     } catch (e) {
       console.error(e);
     }
@@ -34,13 +34,28 @@ class TodoApp {
   async runListGet(req, resp) {
       try {
         let res = await util.read(this.uri, this.database, this.posts, {}) // {} query returns all documents
-  //      const posts = db.collection(POSTS);
-  //      const res = await posts.find().toArray();
         const query = { posts: res };
         resp.render('list.ejs', query)
       } catch (e) {
         console.error(e);
       } 
+  }
+  async runDeletePost(req, resp) {
+    try {
+      req.body._id = parseInt(req.body._id); // the body._id is stored in string, so change it into an int value
+      console.log(req.body._id);
+      await util.delete_document(this.uri, this.database, this.posts, req.body)
+
+      const query = {name : 'Total Post'};
+      const stage = { $inc: {totalPost:-1} };
+      await util.update(this.uri, this.database, this.posts, query, stage)
+
+      console.log('Delete complete')
+      resp.send('Delete complete')
+    }
+    catch (e) {
+      console.error(e);
+    } 
   }
 }
 

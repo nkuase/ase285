@@ -49,8 +49,8 @@ async function runAddPost(req, resp) {
       res = await util.create(URI, DATABASE, POSTS, query);
       
       query = {name : 'Total Post'};
-      let stage = {totalPost: totalPost + 1};
-      await util.update(URI, DATABASE, COUNTER, query, stage);
+      await util.update(URI, DATABASE, COUNTER, query, {$set: {totalPost: totalPost + 1}});
+      // await util.update(URI, DATABASE, COUNTER, query, {$inc: {totalPost: 1}});
       resp.send('Stored to Mongodb OK');
     } catch (e) {
       console.error(e);

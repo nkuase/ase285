@@ -40,7 +40,7 @@ async function read(client, databaseName, collectionName, query) {
 async function update(client, databaseName, collectionName, query, update) {
   try {
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.updateOne(query, { $set: update });
+    const result = await collection.updateOne(query, update);
     console.log(`Updated ${result.modifiedCount} document`);
   } catch (error) {
     console.error(error);
