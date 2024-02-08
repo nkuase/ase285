@@ -1,38 +1,11 @@
 // npm install -g nodemon
 // inpm install . 
 // npm start
+const {URI} = require('./_config.js');
+const util = require('../crud/mongodbutil.js')
 
-const {MongoClient} = require("mongodb");
-
-const uri = require('./db.js');
 const DATABASE = 'todoapp'; 
-const COLLECTION = 'posts'
+const COLLECTION = 'posts'; // Don't forget the ';' 
 
-const client = new MongoClient(uri);
-async function run() {
-  try {
-    // Be sure there is no {name : 'John', age : 10} in the database.
-    await client.connect();
-    const database = client.db(DATABASE);
-    const posts = database.collection(COLLECTION);
-    const query = {name : 'John', age : 10} ;
-    await posts.insertOne(query);
-  } catch (e) {
-    console.error(e);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
-
-/*
-MongoClient.connect(uri).then(
-  client => runApp(client)
-)
-function runApp(client) {
-  client.db(DATABASE).collection(COLLECTION).insertOne(query).then(
-    results => console.log(results)
-  );
-}
-*/
+util.run(URI, DATABASE, {ping: 1}, 'Run Ping OK');
+util.create(URI, DATABASE, COLLECTION, {name: 'John', age: 25}, 'Create OK'); 
