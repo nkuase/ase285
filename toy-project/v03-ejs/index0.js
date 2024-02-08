@@ -64,8 +64,6 @@ app.get('/list', function(req, resp){
 async function runListGet(req, resp) {
     try {
       let res = await util.read(URI, DaTABASE, POSTS, {}) // {} query returns all documents
-//      const posts = db.collection(POSTS);
-//      const res = await posts.find().toArray();
       const query = { posts: res };
       resp.render('list.ejs', query)
     } catch (e) {
