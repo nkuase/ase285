@@ -21,11 +21,11 @@ app.listen(5500, function() {
 });
 
 app.get('/', function(req, resp) { 
-  try {
-    resp.render('write.ejs')
-  } catch (e) {
-    console.error(e);
-  } 
+    try {
+      resp.render('write.ejs')
+    } catch (e) {
+      console.error(e);
+    } 
 });
 
 app.post('/add', function(req, resp) {
@@ -34,26 +34,28 @@ app.post('/add', function(req, resp) {
 
 async function runAddPost(req, resp) {
     try {
-      const counter = db.collection(COUNTER);
-      const posts = db.collection(POSTS);      
-  
       let query = {name : 'Total Post'};
-      let res = await counter.findOne(query);
-      console.log(res);
-      const totalPost = res.totalPost;
+      let res = await util.read(URI, DATABASE, COUNTER, query)
+      let totalPost = 0;
+      if (res.length != 0) {
+        totalPost = res[0].totalPost;
+        console.log(res);
+      } else {
+        query = { name : 'Total Post', totalPost : 0};
+        res = await util.create(URI, DATABASE, COUNTER, query);
+      }
 
       query = { _id : totalPost + 1, title : req.body.title, date : req.body.date};
-      res = await posts.insertOne(query);
+      res = await util.create(URI, DATABASE, POSTS, query);
       
       query = {name : 'Total Post'};
-      let stage = { $inc: {totalPost:1} };
-      await counter.updateOne(query, stage);
+      let stage = {totalPost: totalPost + 1};
+      await util.update(URI, DATABASE, COUNTER, query, stage);
       resp.send('Stored to Mongodb OK');
     } catch (e) {
       console.error(e);
     }
 }
-
 
 app.get('/list', function(req, resp){
   runListGet(req, resp);
@@ -61,31 +63,12 @@ app.get('/list', function(req, resp){
 
 async function runListGet(req, resp) {
     try {
-      const posts = db.collection(POSTS);
-      const res = await posts.find().toArray();
+      let res = await util.read(URI, DaTABASE, POSTS, {}) // {} query returns all documents
+//      const posts = db.collection(POSTS);
+//      const res = await posts.find().toArray();
       const query = { posts: res };
       resp.render('list.ejs', query)
     } catch (e) {
       console.error(e);
     } 
 }
-
-app.delete('/delete', async function(req, resp){
-    req.body._id = parseInt(req.body._id); // the body._id is stored in string, so change it into an int value
-    console.log(req.body._id);
-    try {
-        const counter = db.collection(COUNTER);
-        const posts = db.collection(POSTS)
-        const res = await posts.deleteOne(req.body); 
-
-        const query = {name : 'Total Post'};
-        const stage = { $inc: {totalPost:-1} };
-        await counter.updateOne(query, stage);
-
-        console.log('Delete complete')
-        resp.send('Delete complete')
-    }
-    catch (e) {
-        console.error(e);
-    } 
-}); 

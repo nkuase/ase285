@@ -1,20 +1,14 @@
 // run "npm install . "
-// reset counter/totalPost to 0
-// remove all the documents in the posts
 
-const {MongoClient} = require('mongodb');
-
-const uri = require('./db.js');
-var db;
+const {URI} = require('./_config.js');
+const { TodoApp } = require('../util/utility.js');
 
 const DATABASE = 'todoapp'; 
 const POSTS = 'posts';
 const COUNTER = 'counter';
 
-MongoClient.connect(uri, { useUnifiedTopology: true }, function (error, client) {
-    if (error) return console.log(error)
-    db = client.db(DATABASE);
-});
+const postapp = new TodoApp(URI, DATABASE, POSTS, COUNTER);
+console.log(postapp);
 
 // Install express
 const express = require('express');
@@ -38,43 +32,10 @@ app.get('/', function(req, resp) {
 });
 
 app.post('/add', function(req, resp) {
-    runAddPost(req, resp);
+  postapp.runAddPost(req, resp);
 });
-
-async function runAddPost(req, resp) {
-    try {
-      const counter = db.collection(COUNTER);
-      const posts = db.collection(POSTS);      
-  
-      let query = {name : 'Total Post'};
-      let res = await counter.findOne(query);
-      console.log(res);
-      const totalPost = res.totalPost;
-
-      query = { _id : totalPost + 1, title : req.body.title, date : req.body.date};
-      res = await posts.insertOne(query);
-      
-      query = {name : 'Total Post'};
-      let stage = { $inc: {totalPost:1} };
-      await counter.updateOne(query, stage);
-      resp.send('Stored to Mongodb OK');
-    } catch (e) {
-      console.error(e);
-    }
-}
-
 
 app.get('/list', function(req, resp){
-  runListGet(req, resp);
+  postapp.runListGet(req, resp);
 });
 
-async function runListGet(req, resp) {
-    try {
-      const posts = db.collection(POSTS);
-      const res = await posts.find().toArray();
-      const query = { posts: res };
-      resp.render('list.ejs', query)
-    } catch (e) {
-      console.error(e);
-    } 
-}

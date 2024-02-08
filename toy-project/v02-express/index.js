@@ -1,17 +1,10 @@
 // run "npm install . "
 
-const MongoClient = require('mongodb').MongoClient;
-
-const uri = require('./db.js');
-var db;
+const {URI} = require('./_config.js');
+const util = require('../util/mongodbutil.js')
 
 const DATABASE = 'todoapp'; 
 const COLLECTION = 'posts'
-
-MongoClient.connect(uri, { useUnifiedTopology: true }, function (error, client) {
-    if (error) return console.log(error)
-    db = client.db(DATABASE);
-});
 
 // Install express
 const express = require('express');
@@ -34,13 +27,6 @@ app.get('/', function(req, resp) {
 app.post('/add', async function(req, resp) {
     console.log(req.body);
     resp.send('Sent');
-    try {
-      // Connect the client to the server (optional starting in v4.7)
-      const posts = db.collection(`${COLLECTION}`);
-  
-      const query = { title : req.body.title, date : req.body.date }
-      await posts.insertOne(query);
-    } catch (e) {
-      console.error(e);
-    } 
+    const query = { title : req.body.title, date : req.body.date }
+    util.create(URI, DATABASE, COLLECTION, query);
 });
