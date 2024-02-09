@@ -9,5 +9,5 @@ npm install -g nodemon # be sure to install nodemon
 Add this line in `package.json'
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index. js"
+    "start": "nodemon index.js"
   },
