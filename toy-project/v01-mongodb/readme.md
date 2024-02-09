@@ -13,6 +13,4 @@ const URI = `mongodb+srv://${ID}:${PASSWORD}@${NET}/?retryWrites=true&w=majority
 module.exports.URI = URI
 ```
 
-2. Run `npm install` to install modules. If you need to update the modules to the latest one, read the tip `How to update node packages to the latest?` in `Canvas Course Tools and Resources` page. (If you can’t find the info in Canvas , contact the professor.)
-
-3. Copy the mongodbuitl.js from the ../crud directory if the file is not in the current directory. 
+2. Run `npm install .` to install all the modules. If you need to update the modules to the latest one, read the tip `How to update node packages to the latest?` in `Canvas Course Tools and Resources` page. (If you can’t find the info in Canvas , contact the professor.)
