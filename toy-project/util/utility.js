@@ -35,8 +35,12 @@ class TodoApp {
   async runListGet(req, resp) {
       try {
         let res = await util.read(this.uri, this.database, this.posts, {}) // {} query returns all documents
-        const query = { posts: res };
-        resp.render('list.ejs', query)
+        if (res.length == 0) {
+          resp.redirect('/');
+        } else {
+          const query = { posts: res };
+          resp.render('list.ejs', query)
+        }   
       } catch (e) {
         console.error(e);
         resp.status(500).send({ error: 'Error from runListGet' })

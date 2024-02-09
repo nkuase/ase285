@@ -10,9 +10,7 @@ const COUNTER = 'counter';
 // Install express
 const express = require('express');
 const app = express();
-const bodyParser= require('body-parser')
 
-app.use(bodyParser.urlencoded({extended: true})) 
 app.use(express.urlencoded({extended: true})) 
 app.set('view engine', 'ejs');
 
@@ -50,8 +48,7 @@ async function runAddPost(req, resp) {
       
       query = {name : 'Total Post'};
       await util.update(URI, DATABASE, COUNTER, query, {$set: {totalPost: totalPost + 1}});
-      // await util.update(URI, DATABASE, COUNTER, query, {$inc: {totalPost: 1}});
-      resp.send('Stored to Mongodb OK');
+      resp.send('Stored to Mongodb OK'); // This is ugly, so change it to redirect
     } catch (e) {
       console.error(e);
     }
@@ -63,9 +60,13 @@ app.get('/list', function(req, resp){
 
 async function runListGet(req, resp) {
     try {
-      let res = await util.read(URI, DaTABASE, POSTS, {}) // {} query returns all documents
-      const query = { posts: res };
-      resp.render('list.ejs', query)
+      let res = await util.read(URI, DATABASE, POSTS, {}) // {} query returns all documents
+      if (res.length == 0) {
+        resp.redirect('/');
+      } else {
+        const query = { posts: res };
+        resp.render('list.ejs', query)
+      }        
     } catch (e) {
       console.error(e);
     } 
