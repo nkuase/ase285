@@ -96,30 +96,9 @@ async function delete_document(uri, databaseName, collectionName, query) {
   return result;
 }
 
-async function removeAllDocuments(uri, databaseName, collectionName) {
-  let client;
-  try {
-    // Connect the client to the server
-    client = await connect(uri);      
-    // Select the database
-    const db = client.db(databaseName);
-    // Get the collection
-    const collection = db.collection(collectionName);
-    // Delete all documents in the collection
-    const result = await collection.deleteMany({});
-    console.log(`${result.deletedCount} documents were removed from the collection ${collectionName}`);
-  } catch (error) {
-      console.error('Error removing documents:', error);
-  } finally {
-      // Close the connection
-      await client.close();
-  }
-}
-
 module.exports.connect = connect;
 module.exports.run = run;
 module.exports.create = create;
 module.exports.read = read;
 module.exports.update = update;
 module.exports.delete_document = delete_document;
-module.exports.removeAllDocuments = removeAllDocuments;

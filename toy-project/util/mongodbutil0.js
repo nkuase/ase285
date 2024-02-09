@@ -69,9 +69,30 @@ async function uploadJSON(uri, databaseName, collectionName, filepath){
   }
 }
 
+async function removeAllDocuments(uri, databaseName, collectionName) {
+  let client;
+  try {
+    // Connect the client to the server
+    client = await connect(uri);      
+    // Select the database
+    const db = client.db(databaseName);
+    // Get the collection
+    const collection = db.collection(collectionName);
+    // Delete all documents in the collection
+    const result = await collection.deleteMany({});
+    console.log(`${result.deletedCount} documents were removed from the collection ${collectionName}`);
+  } catch (error) {
+      console.error('Error removing documents:', error);
+  } finally {
+      // Close the connection
+      await client.close();
+  }
+}
+
 module.exports.connect = connect;
 module.exports.create = create;
 module.exports.read = read;
 module.exports.update = update;
 module.exports.readJSON = readJSON;
 module.exports.uploadJSON = uploadJSON;
+module.exports.removeAllDocuments = removeAllDocuments;
