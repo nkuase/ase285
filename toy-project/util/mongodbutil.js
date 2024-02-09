@@ -29,57 +29,63 @@ async function run(uri, databaseName, command, log) {
 
 async function create(uri, databaseName, collectionName, document) {
   let client;
+  let result;
   try {
     client = await connect(uri);
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.insertOne(document);
+    result = await collection.insertOne(document);
     console.log(`Inserted document with ID ${result.insertedId}`);
   } catch (error) {
     console.error(error);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-  }  
+  } 
+  return result; 
 }
 
 async function read(uri, databaseName, collectionName, query) {
   let client;
+  let result;
   try {
     client = await connect(uri);
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.find(query).toArray();
-    console.log(`Found ${result.length} documents`);
+    result = await collection.find(query).toArray();
+    console.log(`read: Found ${result.length} documents from ${query} - ${result}`);
     //console.log(result);
-    return result;
   } catch (error) {
     console.error(error);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-  }  
+  }
+  return result;
 }
 
 async function update(uri, databaseName, collectionName, query, update) {
   let client;
+  let result;
   try {
     client = await connect(uri);
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.updateOne(query, update);
-    console.log(`Updated ${result.modifiedCount} document`);
+    result = await collection.updateOne(query, update);
+    console.log(`update: Updated ${result.modifiedCount} document`);
   } catch (error) {
     console.error(error);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-  }  
+  } 
+  return result; 
 }
 
 async function delete_document(uri, databaseName, collectionName, query) {
   let client;
+  let result;
   try {
     client = await connect(uri);
     const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.deleteOne(query);
+    result = await collection.deleteOne(query);
     console.log(`Deleted ${result.deletedCount} document`);
   } catch (error) {
     console.error(error);
@@ -87,6 +93,7 @@ async function delete_document(uri, databaseName, collectionName, query) {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
+  return result;
 }
 
 function readJSON(filePath){

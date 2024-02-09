@@ -18,14 +18,17 @@
       <div class="card" style="width: 100%">
         <div class="card-body">
           <h5 class="card-title">
-            <%= data.title %>
+            <%= data[0].title %>
           </h5>
           <h6 class="card-subtitle mb-2 text-muted">
-            <%= data.date %>
+            <%= data[0].date %>
           </h6>
+          <h6 class="card-subtitle mb-2 text-muted">
+            <%= data[0]._id %>
+          </h6>          
 
           <form action="/edit" method="POST">
-            <input type="hidden" name="id" value="<%=data._id %>">
+            <input type="hidden" name="id" value="<%=data[0]._id %>">
             <button>Edit</button>
           </form>
         </div>

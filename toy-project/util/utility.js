@@ -29,6 +29,7 @@ class TodoApp {
       this.runListGet(req, resp);
     } catch (e) {
       console.error(e);
+      resp.status(500).send({ error: 'Error from runAddPost' })
     }
   }
   async runListGet(req, resp) {
@@ -38,9 +39,10 @@ class TodoApp {
         resp.render('list.ejs', query)
       } catch (e) {
         console.error(e);
+        resp.status(500).send({ error: 'Error from runListGet' })
       } 
   }
-  async runDeletePost(req, resp) {
+  async runDeleteDelete(req, resp) {
     try {
       req.body._id = parseInt(req.body._id); // the body._id is stored in string, so change it into an int value
       console.log(req.body._id);
@@ -55,7 +57,65 @@ class TodoApp {
     }
     catch (e) {
       console.error(e);
+      resp.status(500).send({ error: 'Error from runDeleteDelete' })
     } 
+  }
+  
+  async runEditIdGet(req, resp) {
+    // DEBUG
+    console.log("runEditIdGet")
+    console.log(req.params)
+    try {
+      let query = {_id: parseInt(req.params.id)};
+      console.log(query);
+      let res = await util.read(this.uri, this.database, this.posts, query)
+      console.log({ data: res })
+      if (res != null && res.length != 0) {
+        resp.render('edit.ejs', { data: res })
+      }
+      else {
+        resp.status(500).send({ error: 'result is null' })
+      }
+    }
+    catch (error) {
+        console.log(error)
+        resp.status(500).send({ error: 'Error from runEditIdGet' })
+    }
+  }
+  async runEditPut(req, resp) {
+    // DEBUG
+    let id = parseInt(req.body._id);
+    console.log(`runEditPut id: ${req.body.id} title: ${req.body.title} date: ${req.body.date}`)
+    let query = {_id: id}
+    let update = {$set: {_id:id, title: req.body.title, date: req.body.date}}
+    try {
+      let res = await util.update(this.uri, this.database, this.posts, query, update);
+      console.log(`app.put.edit: Update complete ${res}`)
+      resp.redirect('/list')
+    }
+    catch (e) {
+      console.error(e);
+      resp.status(500).send({ error: 'Error from runEditPut' })
+    }
+  }
+  
+  async runDetailIdGet(req, resp) {
+    try {
+      let query = { _id: parseInt(req.params.id) }
+      let res = await util.read(this.uri, this.database, this.posts, query);
+      console.log({ data: res });
+      if (res != null && res.length > 0) {
+          resp.render('detail.ejs', { data: res })
+      }
+      else {
+          console.log(error);
+          resp.status(500).send({ error: 'result is null' })
+      }
+    }
+    catch (error) {
+      onsole.log(error)
+      resp.status(500).send({ error: 'Error from runDetailIdGet' })
+    }
   }
 }
 

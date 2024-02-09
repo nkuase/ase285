@@ -5,9 +5,12 @@
 ```
 const ID=''; 
 const PASSWORD = ''; 
-const NET='';
+const NET=''; 
 
-exports.modules = {ID, PASSWORD, NET}
+// Connection URI
+const URI = `mongodb+srv://${ID}:${PASSWORD}@${NET}/?retryWrites=true&w=majority`
+
+module.exports.URI = URI
 ```
 
 2. Run `npm install` to install modules. If you need to update the modules to the latest one, read the tip `How to update node packages to the latest?` in `Canvas Course Tools and Resources` page. (If you can’t find the info in Canvas , contact the professor.)
