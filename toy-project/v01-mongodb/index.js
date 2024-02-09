@@ -1,13 +1,10 @@
-// npm install -g nodemon
-// inpm install . 
-// npm start
 const {URI} = require('./_config.js');
 const util = require('../util/mongodbutil.js')
 
 const DATABASE = 'todoapp'; 
-const COLLECTION = 'posts'; // Don't forget the ';' 
+const COLLECTION = 'posts'; 
 
-util.run(URI, DATABASE, {ping: 1}, 'Run Ping OK');
+util.run(URI, DATABASE, {ping: 1}, 'Run Ping OK'); // Don't forget the ';' when we use (async() ...) function.
 (async () => {
   await util.create(URI, DATABASE, COLLECTION, {name: 'John', age: 25}, 'Create OK'); 
   let res = util.read(URI, DATABASE, COLLECTION, {}, 'Read OK');

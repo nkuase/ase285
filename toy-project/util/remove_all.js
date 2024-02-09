@@ -1,5 +1,5 @@
 const {URI} = require('./_config.js');
-const util = require('../util/mongodbutil.js')
+const util = require('./mongodbutil.js')
 
 const DATABASE = 'todoapp'; 
 const POSTS = 'posts'; 

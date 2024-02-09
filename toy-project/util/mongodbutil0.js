@@ -1,4 +1,5 @@
 const {MongoClient} = require("mongodb");
+const fs = require('fs')
 
 async function connect(uri) {
   const client = new MongoClient(uri, {});
@@ -10,7 +11,6 @@ async function connect(uri) {
     console.error(error);
   }
 }
-
 // CRUD function
 
 //takes JSON data to add document to mongoDB database
@@ -47,27 +47,31 @@ async function update(client, databaseName, collectionName, query, update) {
   }
 }
 
-//Standard mongoDB function to delete a document matching the specified query
-async function delete_document(client, databaseName, collectionName, query) {
-  try {
-    const collection = client.db(databaseName).collection(collectionName);
-    const result = await collection.deleteOne(query);
-    console.log(`Deleted ${result.deletedCount} document`);
-  } catch (error) {
-    console.error(error);
-  }
+// Utility
+function readJSON(filepath){
+  var data = fs.readFileSync(filepath, "utf8");
+  return JSON.parse(data);
 }
 
-//Reads JSON information into an array of courses then creates documents for each item
-function upload(client, databaseName, collectionName, filepath){
-  var documents = readJSON(filepath)
-  for (var i = 0; i < documents.courses.length; i++){
-    create(client, databaseName, collectionName, documents.courses[i]);
+async function uploadJSON(uri, databaseName, collectionName, filepath){
+  let documents = readJSON(filepath)
+  let client;
+  try {
+    client = await connect(uri);
+    for (var i = 0; i < documents.courses.length; i++){
+      await create(client, databaseName, collectionName, documents.courses[i]);
+    }
+  } catch (error) {
+    console.error('Error uploading documents:', error);
+  } finally {
+    // Close the connection
+    await client.close();
   }
-}  
+}
 
 module.exports.connect = connect;
 module.exports.create = create;
 module.exports.read = read;
 module.exports.update = update;
-module.exports.delete_document = delete_document;
+module.exports.readJSON = readJSON;
+module.exports.uploadJSON = uploadJSON;
