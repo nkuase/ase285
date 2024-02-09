@@ -27,8 +27,7 @@
             <%= data[0]._id %>
           </h6>          
 
-          <form action="/edit" method="POST">
-            <input type="hidden" name="id" value="<%=data[0]._id %>">
+          <form action="/edit/<%=data[0]._id%>" method="GET">
             <button>Edit</button>
           </form>
         </div>
