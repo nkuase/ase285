@@ -1,5 +1,3 @@
-// run "npm install . "
-
 const {URI} = require('./_config.js');
 const { TodoApp } = require('../util/utility.js');
 
@@ -11,8 +9,6 @@ const postapp = new TodoApp(URI, DATABASE, POSTS, COUNTER);
 
 // Install express
 const express = require('express');
-const app = express();
-const bodyParser= require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true})) 
 app.use(express.urlencoded({extended: true})) 
