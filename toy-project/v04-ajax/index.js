@@ -9,8 +9,8 @@ const postapp = new TodoApp(URI, DATABASE, POSTS, COUNTER);
 
 // Install express
 const express = require('express');
+const app = express();
 
-app.use(bodyParser.urlencoded({extended: true})) 
 app.use(express.urlencoded({extended: true})) 
 app.set('view engine', 'ejs');
 
