@@ -1,0 +1,14 @@
+.block-level {
+    width: 120px;
+    height: 120px;
+    margin: 20px;
+    position: relative;
+    float: left;
+    color: blue;
+}
+
+.img-fluid {
+    max-width: 100%;
+    width: 50px;
+    height: auto;
+}

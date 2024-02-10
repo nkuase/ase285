@@ -29,7 +29,7 @@ class TodoApp {
       this.runListGet(req, resp);
     } catch (e) {
       console.error(e);
-      resp.status(500).send({ error: 'Error from runAddPost' })
+      resp.status(500).send({ error: `Error from runAddPost: ${e.message}` })
     }
   }
   async runListGet(req, resp) {
@@ -43,7 +43,7 @@ class TodoApp {
         }   
       } catch (e) {
         console.error(e);
-        resp.status(500).send({ error: 'Error from runListGet' })
+        resp.status(500).send({ error: `Error from runListGet: ${e.message}` })
       } 
   }
   async runDeleteDelete(req, resp) {
@@ -56,12 +56,11 @@ class TodoApp {
       const stage = { $inc: {totalPost:-1} };
       await util.update(this.uri, this.database, this.posts, query, stage)
 
-      console.log('Delete complete')
       resp.send('Delete complete')
     }
     catch (e) {
       console.error(e);
-      resp.status(500).send({ error: 'Error from runDeleteDelete' })
+      resp.status(500).send({ error: `Error from runDeleteDelete: ${e.message}` })
     } 
   }
   
@@ -83,7 +82,7 @@ class TodoApp {
     }
     catch (error) {
         console.log(error)
-        resp.status(500).send({ error: 'Error from runEditIdGet' })
+        resp.status(500).send({ error: `Error from runEditIdGet : ${e.message}` })
     }
   }
   async runEditPut(req, resp) {
@@ -99,7 +98,7 @@ class TodoApp {
     }
     catch (e) {
       console.error(e);
-      resp.status(500).send({ error: 'Error from runEditPut' })
+      resp.status(500).send({ error: `Error from runEditPut: ${e.message}`})
     }
   }
   
@@ -113,12 +112,12 @@ class TodoApp {
       }
       else {
           console.log(error);
-          resp.status(500).send({ error: 'result is null' })
+          resp.status(500).send({ error: `result is null: ${e.message}` })
       }
     }
     catch (error) {
-      onsole.log(error)
-      resp.status(500).send({ error: 'Error from runDetailIdGet' })
+      console.log(error)
+      resp.status(500).send({ error: `Error from runDetailIdGet: ${e.message}` })
     }
   }
 }

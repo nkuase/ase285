@@ -8,16 +8,19 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <!-- my CSS -->
+  <link rel="stylesheet" href="/static/mycss.css"/>    
   <title>Document</title>
 </head>
 
 <body>
   <%- include('nav.ejs') %>
     <div class="container mt-3">
+      <img class="img-fluid" src="/public/todo.png" alt="todo" />
       <div class="card" style="width: 100%">
         <div class="card-body">
-          <h5 class="card-title">
+          <h5 class="block-level">
             <%= data[0].title %>
           </h5>
           <h6 class="card-subtitle mb-2 text-muted">
