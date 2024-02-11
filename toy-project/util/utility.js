@@ -123,11 +123,10 @@ class TodoApp {
       let res = await util.read(this.uri, this.database, this.posts, query);
       console.log({ data: res });
       if (res != null && res.length > 0) {
-          resp.render('detail.ejs', { data: res })
+        resp.render('detail.ejs', { data: res })
       }
       else {
-          console.log(error);
-          resp.status(500).send({ error: `result is null: ${e.message}` })
+        resp.render('error.ejs', { error: `result is null` })
       }
     }
     catch (error) {

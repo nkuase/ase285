@@ -22,7 +22,7 @@ app.get('/', function(req, resp) {
 
 app.get('/test', async function(req, resp) {
     console.log(req.body);
-    resp.send('OK');
+    resp.sendFile(__dirname +'/json/test.json')
 }); 
 
 app.get('/test2/:id', async function(req, resp) {
