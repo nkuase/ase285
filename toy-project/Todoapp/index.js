@@ -4,8 +4,12 @@
 // nodemon ./index.js
 // Access this server with http://localhost:5500
 
-const {URI} = require('./_config.js');
 const { TodoApp } = require('../util/utility.js');
+
+const dotenv = require("dotenv");
+dotenv.config();
+const URI = process.env.URI
+console.log(URI)
 
 const DATABASE = 'todoapp';
 const POSTS = 'posts';
@@ -15,6 +19,8 @@ const postapp = new TodoApp(URI, DATABASE, POSTS, COUNTER);
 const express = require('express');
 const app = express();
 const methodOverride = require('method-override')
+
+
 
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
