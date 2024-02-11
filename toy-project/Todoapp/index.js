@@ -25,7 +25,7 @@ const methodOverride = require('method-override')
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
-app.use('/static', express.static('static'));
+app.use('/stylesheets', express.static('stylesheets'));
 app.use(methodOverride('_method'))
 
 app.listen(5500, function () {
