@@ -1,5 +1,5 @@
 const { createSign, createVerify } = require('crypto');
-const { publicKey, privateKey } = require('./keypair');
+const { privateKey, publicKey } = require('./keypair');
 
 const data = 'I need to sign this document.';
 

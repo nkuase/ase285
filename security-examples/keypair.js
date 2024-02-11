@@ -1,5 +1,3 @@
-export {privateKey, publicKey}
-
 const { generateKeyPairSync } = require('crypto');
 
 const { privateKey, publicKey } = generateKeyPairSync('rsa', {
@@ -16,3 +14,5 @@ const { privateKey, publicKey } = generateKeyPairSync('rsa', {
 
 console.log(publicKey);
 console.log(privateKey);
+
+module.exports = {privateKey, publicKey}
