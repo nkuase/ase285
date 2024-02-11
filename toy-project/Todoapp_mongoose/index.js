@@ -9,7 +9,7 @@ const TodoTask = require("./models/TodoTask");
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.DB_CONNECT);
+  await mongoose.connect(process.env.URI);
   console.log("Connected to db!");
   app.listen(3000, () => console.log("Server Up and running"));
 }
@@ -20,7 +20,27 @@ app.use(express.urlencoded({ extended: true }));
 
 // CRUD processing
 
-app.get("/", async (req, res) => {
+app.route("/").get(async (req, res) => {
+  try {
+    const tasks = await TodoTask.find({})
+    res.render("todo.ejs", { todoTasks: tasks });
+  }
+  catch (err) {
+    console.error(err);
+  }
+}).post(async (req, res) => {
+  const todoTask = new TodoTask({
+      title: req.body.title
+  });
+  try {
+    await todoTask.save();
+    res.redirect("/");
+  } catch (err) {
+    res.send(500, err);
+  }
+});
+
+/* app.get("/", async (req, res) => {
   try {
     const tasks = await TodoTask.find({})
     res.render("todo.ejs", { todoTasks: tasks });
@@ -32,7 +52,7 @@ app.get("/", async (req, res) => {
 
 app.post('/', async (req, res) => {
     const todoTask = new TodoTask({
-        content: req.body.content
+        title: req.body.title
     });
     try {
       await todoTask.save();
@@ -41,6 +61,7 @@ app.post('/', async (req, res) => {
       res.send(500, err);
     }
 });
+*/
 
 //UPDATE
 app.route("/edit/:id").get(async (req, res) => {
@@ -55,7 +76,7 @@ app.route("/edit/:id").get(async (req, res) => {
 .post(async (req, res) => {
   const id = req.params.id;
   try {
-    await TodoTask.findByIdAndUpdate(id, { content: req.body.content })
+    await TodoTask.findByIdAndUpdate(id, { title: req.body.title })
     res.redirect("/");
   } catch (err) {
     res.send(500, err);
