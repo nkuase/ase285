@@ -1,4 +1,4 @@
-const { createSign, createVerify } = require('crypto');
+const { createSign, createVerify, generateKeyPairSync } = require('crypto');
 const { privateKey, publicKey } = require('./keypair');
 
 const data = 'I need to sign this document.';
