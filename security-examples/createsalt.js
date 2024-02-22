@@ -1,4 +1,4 @@
-const { scryptSync, randomBytes, timingSafeEqual } = require('crypto');
+const { scryptSync, randomBytes } = require('crypto');
 
 function signup(email, password) {
     const salt = randomBytes(16).toString('hex'); // randomly generate the salt string
