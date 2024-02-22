@@ -1,5 +1,7 @@
 const {  publicEncrypt, privateDecrypt } = require('crypto');
-const { publicKey, privateKey } = require('./keypair');
+
+// Encryption
+const publicKey = require('./keypair').publicKey;
 
 console.log(publicKey) //?
 const secretMessage = 'ASE 285 students are superb!'
@@ -9,6 +11,9 @@ const encryptedData = publicEncrypt(
   );
 
 console.log(encryptedData.toString('hex'))
+
+// Decrytion
+const privateKey = require('./keypair').privateKey;
 const decryptedData = privateDecrypt(
     privateKey,
     encryptedData
