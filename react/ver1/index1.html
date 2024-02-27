@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Before React</title>
+</head>
+
+<body>
+  <span>Total clicks: 0</span>
+  <button id="button">Click me</button>
+  <script>
+    let counter = 0;
+    const span = document.querySelector('span');
+    const button = document.getElementById('button');
+    button.addEventListener('click', () => {
+      counter += 1;
+      span.innerText = `Total clicks: ${counter}`;
+    });
+  </script>
+</body>
+
+</html>
