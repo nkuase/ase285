@@ -10,7 +10,7 @@
     function Min2Hour() {
       const [amount, setAmount] = React.useState(0);
       const [flipped, setFlipped] = React.useState(false);
-      const onChange = () => setAmount(event.target.value);
+      const onChange = (event) => setAmount(event.target.value);
       const onReset = () => setAmount(0);
       const onFlip = () => {
         onReset();
