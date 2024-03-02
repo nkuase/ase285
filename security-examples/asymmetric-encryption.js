@@ -10,10 +10,12 @@ const encryptedData = publicEncrypt(
     Buffer.from(secretMessage)
   );
 
-console.log(encryptedData.toString('hex'))
+
 
 // Decrytion
 const privateKey = require('./keypair').privateKey;
+console.log(privateKey) //?
+console.log(encryptedData)
 const decryptedData = privateDecrypt(
     privateKey,
     encryptedData

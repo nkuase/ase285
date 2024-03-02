@@ -1,8 +1,0 @@
-{
-    "name": "security example",
-    "version": "1.0.0",
-    "description": "",
-    "dependencies": {
-        "crypto": "^1.0.1"
-    }
-}
