@@ -1,0 +1,18 @@
+{
+  "name": "simple-react-esbuild",
+  "version": "1.0.0",
+  "description": "Simple React app with esbuild for educational purposes",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "esbuild": "^0.19.0"
+  },
+  "scripts": {
+    "build": "esbuild src/App.tsx --bundle --outfile=app.js --format=iife --global-name=AppModule",
+    "serve": "python3 -m http.server 8000 || python -m SimpleHTTPServer 8000 || npx http-server -p 8000"
+  }
+}

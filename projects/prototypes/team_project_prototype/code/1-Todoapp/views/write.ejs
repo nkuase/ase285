@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('nav.ejs') %>
+
+    <h4 class="container mt-4"><strong>Write Page</strong></h4>
+
+    <div class="container mt-3">
+      <form action="/add" method="POST">
+        <div class="form-group">
+          <label>What to do today</label>
+          <input type="text" class="form-control" name="title" />
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="text" class="form-control" name="date" />
+        </div>
+        <button type="submit" class="btn btn-outline-secondary">Submit</button>
+      </form>
+    </div>
+</body>
+
+</html>

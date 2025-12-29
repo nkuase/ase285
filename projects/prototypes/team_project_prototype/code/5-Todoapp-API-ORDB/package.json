@@ -1,0 +1,39 @@
+{
+  "name": "todoapp-api-orb",
+  "version": "1.0.0",
+  "description": "Todo application with Object-Relational Database Bridge (ORDB) pattern supporting both MongoDB and SQLite",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "start:mongodb": "DB_TYPE=mongodb node index.js",
+    "start:sqlite": "DB_TYPE=sqlite node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "ordb",
+    "database",
+    "abstraction",
+    "mongodb",
+    "sqlite",
+    "adapter-pattern",
+    "bridge-pattern"
+  ],
+  "author": "ASE285 Course",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^6.3.0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "node-commonjs-math",
+  "version": "1.0.0",
+  "description": "CommonJS module example with class and function exports",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "MIT"
+}

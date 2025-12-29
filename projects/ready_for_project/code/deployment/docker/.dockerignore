@@ -1,0 +1,51 @@
+# ============================================
+# .dockerignore
+# ============================================
+# Specifies files/directories to exclude from Docker build context
+# This reduces build time and image size
+
+# Node modules (will be installed in container)
+node_modules
+npm-debug.log
+
+# Git files
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Environment files (security)
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+test
+tests
+*.test.js
+coverage
+
+# Build files
+dist
+build
+
+# Logs
+logs
+*.log
+
+# NGINX configs (not needed in app container)
+nginx*.conf
+docker-compose.yml

@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+todoapp.sqlite
+
+# Environment variables
+.env
+
+# SQLite database file
+*.sqlite
+*.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/

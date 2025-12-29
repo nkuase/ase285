@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .grade-item {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      padding: 5px 10px;
+      margin: 5px;
+    }
+
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Grade Calculator (JavaScript Edition)</h1>
+
+  <div id="grade-form">
+    <input type="text" id="assignment-name" placeholder="Assignment name">
+    <input type="number" id="score" placeholder="Score" min="0" max="100">
+    <input type="number" id="weight" placeholder="Weight %" min="0" max="100">
+    <button onclick="addGrade()">Add Grade</button>
+  </div>
+
+  <div id="grades-list"></div>
+  <div id="result" class="result"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

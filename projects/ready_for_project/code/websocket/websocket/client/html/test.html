@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Simple Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 300px;
+        }
+        #status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        #status.connected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #status.disconnected {
+            background-color: #f44336;
+            color: white;
+        }
+        #messages {
+            background-color: #f5f5f5;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: white;
+            border-left: 3px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Socket.IO Simple Client Test</h1>
+    
+    <div class="section">
+        <h3>Connection Status</h3>
+        <span id="status" class="disconnected">Disconnected</span>
+    </div>
+
+    <div class="section">
+        <h3>API 1: Echo Test</h3>
+        <input type="text" id="echoInput" placeholder="Type message to echo">
+        <button onclick="testEcho()">Send Echo</button>
+    </div>
+
+    <div class="section">
+        <h3>API 2: Broadcast Test</h3>
+        <input type="text" id="broadcastInput" placeholder="Type message to broadcast">
+        <button onclick="testBroadcast()">Send Broadcast</button>
+    </div>
+
+    <div class="section">
+        <h3>API 3: Room Test</h3>
+        <input type="text" id="roomName" placeholder="Room name (e.g., room1)">
+        <button onclick="joinRoom()">Join Room</button>
+        <br>
+        <input type="text" id="roomMessage" placeholder="Message to room">
+        <button onclick="sendRoomMessage()">Send to Room</button>
+    </div>
+
+    <div class="section">
+        <h3>API 4: Get Time</h3>
+        <button onclick="getTime()">Get Server Time</button>
+    </div>
+
+    <div class="section">
+        <h3>Messages Received</h3>
+        <div id="messages"></div>
+    </div>
+
+    <!-- Include Socket.IO client library from CDN -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <script>
+        // Connect to Socket.IO server
+        const socket = io('http://localhost:5000');
+
+        // Connection event handlers
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            document.getElementById('status').textContent = 'Connected';
+            document.getElementById('status').className = 'connected';
+            addMessage('System', 'Connected to server');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+            document.getElementById('status').textContent = 'Disconnected';
+            document.getElementById('status').className = 'disconnected';
+            addMessage('System', 'Disconnected from server');
+        });
+
+        // API 1: Echo response
+        socket.on('echo-response', (message) => {
+            addMessage('Echo Response', message);
+        });
+
+        // API 2: Broadcast message
+        socket.on('broadcast-message', (data) => {
+            addMessage('Broadcast', `From ${data.from}: ${data.message}`);
+        });
+
+        // API 3: Room events
+        socket.on('room-joined', (roomName) => {
+            addMessage('Room', `Joined room: ${roomName}`);
+        });
+
+        socket.on('room-message-received', (data) => {
+            addMessage('Room Message', `From ${data.from}: ${data.message}`);
+        });
+
+        // API 4: Current time
+        socket.on('current-time', (time) => {
+            addMessage('Server Time', time);
+        });
+
+        // Test functions
+        function testEcho() {
+            const message = document.getElementById('echoInput').value;
+            if (message) {
+                socket.emit('echo', message);
+                addMessage('Echo Sent', message);
+            }
+        }
+
+        function testBroadcast() {
+            const message = document.getElementById('broadcastInput').value;
+            if (message) {
+                socket.emit('broadcast', message);
+                addMessage('Broadcast Sent', message);
+            }
+        }
+
+        function joinRoom() {
+            const roomName = document.getElementById('roomName').value;
+            if (roomName) {
+                socket.emit('join-room', roomName);
+                addMessage('Action', `Joining room: ${roomName}`);
+            }
+        }
+
+        function sendRoomMessage() {
+            const roomName = document.getElementById('roomName').value;
+            const message = document.getElementById('roomMessage').value;
+            if (roomName && message) {
+                socket.emit('room-message', { room: roomName, message: message });
+                addMessage('Room Message Sent', `To ${roomName}: ${message}`);
+            }
+        }
+
+        function getTime() {
+            socket.emit('get-time');
+            addMessage('Action', 'Requested server time');
+        }
+
+        // Helper function to add messages to the display
+        function addMessage(type, content) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<strong>${type}:</strong> ${content}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>

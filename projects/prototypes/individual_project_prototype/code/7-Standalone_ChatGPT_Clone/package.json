@@ -1,0 +1,59 @@
+{
+  "name": "chatgpt-electron",
+  "version": "0.1.0",
+  "main": "main.js",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-redux": "^8.0.5",
+    "socket.io-client": "^4.6.1",
+    "dotenv": "^16.0.3",    
+    "uuid": "^9.0.0",
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.0.0",
+    "vite": "^4.3.9",
+    "wait-on": "^7.2.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron-dev": "concurrently \"vite\" \"wait-on http://localhost:3000 && ELECTRON_IS_DEV=1 electron .\"",
+    "electron-prod": "vite build && NODE_ENV=production electron .",
+    "dist": "vite build && electron-builder",
+    "clean": "rm -rf dist build node_modules/.vite"
+  },
+  "build": {
+    "appId": "com.nku.chatgpt-electron",
+    "productName": "ChatGPT Electron",
+    "files": [
+      "main.js",
+      "preload.js",
+      "build/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    },
+    "mac": {
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

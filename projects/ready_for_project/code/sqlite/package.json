@@ -1,0 +1,13 @@
+{
+  "name": "todo-cli-sqlite",
+  "version": "1.0.0",
+  "description": "Tiny CLI CRUD app using Node.js + SQLite",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6"
+  }
+}

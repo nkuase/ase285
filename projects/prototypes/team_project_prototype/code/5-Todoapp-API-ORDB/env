@@ -1,0 +1,16 @@
+# Database Configuration
+# Set DB_TYPE to either 'mongodb' or 'sqlite'
+DB_TYPE=sqlite
+
+# MongoDB Configuration (only needed if DB_TYPE=mongodb)
+MONGO_USER=your_username
+MONGO_PASSWORD=your_password
+MONGO_CLUSTER=your_cluster
+MONGO_DATABASE=todoapp
+
+# SQLite Configuration (only needed if DB_TYPE=sqlite)
+# Leave empty to use default: ./todoapp.sqlite
+SQLITE_PATH=
+
+# Server Configuration
+PORT=5500

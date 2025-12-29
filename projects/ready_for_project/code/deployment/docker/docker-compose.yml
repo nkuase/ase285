@@ -1,0 +1,39 @@
+# Docker Compose Configuration
+# Runs both Node.js app and NGINX in containers
+# Uses port 8080 for easy macOS compatibility
+
+version: '3.8'
+
+services:
+  # Node.js Application
+  app:
+    build:
+      context: ..                          # deployment 
+      dockerfile: docker/app/Dockerfile    # deployment/docker/app/Dockerfile
+    container_name: nodejs_app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  # NGINX Reverse Proxy
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx_proxy
+    restart: unless-stopped
+    ports:
+      - "8080:80"  # Host port 8080 → Container port 80
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

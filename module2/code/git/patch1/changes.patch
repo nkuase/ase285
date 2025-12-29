@@ -1,0 +1,12 @@
+diff --git a/file1.txt b/file2.txt
+index bf30cf0..f72c39d 100644
+--- a/file1.txt
++++ b/file2.txt
+@@ -1,5 +1,6 @@
+ L1
+ L2
+-L3
++L3X
+ L4
+ L5
++L6-add
