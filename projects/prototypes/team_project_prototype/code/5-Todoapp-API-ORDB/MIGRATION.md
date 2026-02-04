@@ -10,9 +10,9 @@
 
 2. Created `.env` with actual values (for development):
    ```
-   MONGO_USER=smcho
-   MONGO_PASSWORD=123456hello
-   MONGO_CLUSTER=spkivnw
+   MONGO_USER=YOUR_ID
+   MONGO_PASSWORD=YOUR_PASSWORD
+   MONGO_CLUSTER=YOUR_CLUSTER
    MONGO_DATABASE=todoapp
    ```
 
