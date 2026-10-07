@@ -170,8 +170,8 @@
   <!-- Mount the application -->
   <script>
     // The bundled app exposes AppModule with a mount function
-    if (typeof AppModule !== 'undefined' && AppModule.default && AppModule.default.mount) {
-      AppModule.default.mount('root');
+    if (typeof AppModule !== 'undefined' && AppModule.mount) {
+      AppModule.mount('root');
     } else {
       document.getElementById('root').innerHTML = `
         <div style="padding: 40px; text-align: center; color: #e74c3c;">

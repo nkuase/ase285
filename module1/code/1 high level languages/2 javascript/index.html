@@ -37,9 +37,10 @@
     <input type="text" id="assignment-name" placeholder="Assignment name">
     <input type="number" id="score" placeholder="Score" min="0" max="100">
     <input type="number" id="weight" placeholder="Weight %" min="0" max="100">
-    <button onclick="addGrade()">Add Grade</button>
+    <button id="add-grade-btn" type="button">Add Grade</button>
   </div>
 
+  <div id="error-message" role="alert"></div>
   <div id="grades-list"></div>
   <div id="result" class="result"></div>
 
