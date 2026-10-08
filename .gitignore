@@ -6,10 +6,3 @@ _config.js
 .env
 .editorconfig
 
-# Generated PDFs
-pdf/
-*.pdf
-
-# Generated PDFs
-pdf/
-*.pdf
