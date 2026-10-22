@@ -1,0 +1,18 @@
+{
+  "name": "chatgpt-server-step5",
+  "version": "1.0.0",
+  "description": "Step 5: Express server that talks to the OpenAI (ChatGPT) API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "openai": "3.3.0",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "todoapp-api-sqlite",
+  "version": "1.0.0",
+  "description": "Step 4: Todo app API with SQLite, Express, and EJS views",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "method-override": "^3.0.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

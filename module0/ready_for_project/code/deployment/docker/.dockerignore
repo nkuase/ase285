@@ -1,0 +1,5 @@
+# Not used.
+#
+# docker-compose.yml builds the app image with the parent directory (deployment/)
+# as the build context, and Docker reads .dockerignore from the root of the build
+# context. See ../.dockerignore.

@@ -1,0 +1,16 @@
+# .dockerignore for the app image
+#
+# The build context of the app image is this directory (deployment/),
+# see docker/docker-compose.yml and docker_https/docker-compose.yml.
+# The app image needs only the app/ directory.
+
+# Ignore everything ...
+*
+
+# ... except the app directory
+!app
+
+# Never copy host dependencies, logs, or secrets into the image
+**/node_modules
+**/npm-debug.log
+**/.env

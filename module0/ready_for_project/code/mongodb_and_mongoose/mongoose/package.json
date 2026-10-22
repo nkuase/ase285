@@ -1,0 +1,14 @@
+{
+  "name": "mongoose-example",
+  "version": "1.0.0",
+  "description": "Accessing MongoDB with Mongoose",
+  "main": "database.js",
+  "scripts": {
+    "ping": "node ping.js",
+    "start": "node database.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongoose": "^8.6.0"
+  }
+}

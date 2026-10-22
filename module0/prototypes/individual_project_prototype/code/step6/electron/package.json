@@ -1,0 +1,45 @@
+{
+  "name": "chatgpt-electron",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ChatGPT Clone (React + Vite + Electron)",
+  "author": "ASE285",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron-dev": "concurrently \"vite\" \"wait-on http://localhost:3000 && ELECTRON_IS_DEV=1 electron .\"",
+    "electron-prod": "vite build && NODE_ENV=production electron .",
+    "dist": "vite build && electron-builder",
+    "clean": "rm -rf dist build node_modules/.vite"
+  },
+  "devDependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
+    "@vitejs/plugin-react": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-redux": "^8.1.3",
+    "socket.io-client": "^4.7.2",
+    "uuid": "^9.0.1",
+    "vite": "^4.3.9",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.example.chatgpt-clone",
+    "productName": "ChatGPT Clone",
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

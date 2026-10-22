@@ -1,0 +1,7 @@
+ssl/
+*.key
+*.crt
+
+# mkcert certificates and private keys: create them on each machine
+*.pem
+nginx/certs/

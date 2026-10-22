@@ -1,0 +1,38 @@
+{
+  "name": "todoapp-api-ordb",
+  "version": "1.0.0",
+  "description": "Step 5: Todo application with an ORDB abstraction layer supporting both MongoDB and SQLite",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "start:mongodb": "DB_TYPE=mongodb node index.js",
+    "start:sqlite": "DB_TYPE=sqlite node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "ordb",
+    "database",
+    "abstraction",
+    "mongodb",
+    "sqlite",
+    "adapter-pattern",
+    "repository-pattern"
+  ],
+  "author": "ASE285 Course",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "method-override": "^3.0.0",
+    "mongodb": "^6.8.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

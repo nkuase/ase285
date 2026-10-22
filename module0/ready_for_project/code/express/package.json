@@ -1,0 +1,23 @@
+{
+  "name": "todoapp",
+  "version": "1.0.0",
+  "description": "Express examples for the TodoApp: express, EJS, AJAX, and method override",
+  "scripts": {
+    "express": "node index_express.js",
+    "ejs": "node index_ejs.js",
+    "ajax": "node index_js.js",
+    "method-override": "node index_method_override.js",
+    "start": "node index_method_override.js",
+    "dev": "nodemon index_method_override.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "method-override": "^3.0.0",
+    "mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

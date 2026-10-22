@@ -1,0 +1,38 @@
+# Docker Compose Configuration
+# Runs both Node.js app and NGINX (HTTP + HTTPS) in containers
+# Uses ports 8080 and 8443 for easy macOS compatibility
+
+services:
+  # Node.js Application
+  app:
+    build:
+      context: ..                              # deployment
+      dockerfile: docker_https/app/Dockerfile  # deployment/docker_https/app/Dockerfile
+    container_name: nodejs_app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  # NGINX Reverse Proxy
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx_proxy
+    restart: unless-stopped
+    ports:
+      - "8080:80"   # Host port 8080 → Container port 80 (redirects to HTTPS)
+      - "8443:443"  # Host port 8443 → Container port 443 (HTTPS)
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

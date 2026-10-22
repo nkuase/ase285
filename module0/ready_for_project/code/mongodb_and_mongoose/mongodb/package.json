@@ -1,0 +1,13 @@
+{
+  "name": "mongodb-example",
+  "version": "1.0.0",
+  "description": "Accessing MongoDB with the native Node.js driver",
+  "scripts": {
+    "ping": "node ping.js",
+    "start": "node database.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongodb": "^7.0.0"
+  }
+}

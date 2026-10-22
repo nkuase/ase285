@@ -1,0 +1,16 @@
+{
+  "name": "chatgpt-server-step4",
+  "version": "1.0.0",
+  "description": "Step 4: Express server that sends (mock) AI messages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.1"
+  }
+}

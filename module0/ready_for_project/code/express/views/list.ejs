@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('nav.ejs') %>
+
+    <ul class="list-group">
+      <% for (var i=0; i < posts.length; i++){ %>
+        <li class="list-group-item">
+          <h4> Title : <%= posts[i].title %>
+          </h4>
+          <p> Date : <%= posts[i].date %>
+          </p>
+          <p> Id : <%= posts[i]._id %>
+          </p>
+          <button class="delete" data-id="<%= posts[i]._id %>">Delete</button>
+        </li>
+        <% } %>
+    </ul>
+
+    <script>
+        document.addEventListener("click", async (e) => {
+          if (!e.target.classList.contains("delete")) return;
+
+          const id = e.target.dataset.id;
+
+          try {
+            const res = await fetch("/delete", {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ _id: id })
+            });
+
+            if (!res.ok) throw new Error("Request failed");
+
+            // Remove parent <li> with fade-out effect
+            const li = e.target.closest("li");
+            li.style.transition = "opacity 0.4s";
+            li.style.opacity = 0;
+            setTimeout(() => li.remove(), 400);
+
+            console.log("killed");
+          } catch (err) {
+            console.error(err);
+          }
+        });
+    </script>
+
+</body>
+
+</html>
